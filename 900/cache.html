@@ -1,0 +1,30 @@
+<html manifest="Cache.manifest">
+<head>
+<title>Hex PS4 9.00 </title>
+<style>
+html, body {
+background-image: url('ca.png');
+background-size: 100%;
+background-repeat: no-repeat;
+background-color: #24272b;
+color: white;
+text-align: center;
+margin: 0px;
+overflow: hidden;
+}
+h1 {
+text-shadow: 0.1em 0.1em 0.2em black;
+font-size: 25px;
+text-align: center;
+color: white;
+}
+</style>
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="جاري التحميل: " + Percent + "%";}
+function DisplayCacheProgress(){setTimeout(function(){window.msgs.innerHTML="تم الانتهاء ✔";},1000);setTimeout(function(){window.msgs.innerHTML="الان قم باغلاق المتصفح وقم بفصل الانترنت عن الجهاز والرجوع الى المتصفح مره اخرى";},3000);}window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+</script>
+<br>
+<h1 id=msgs style="font-size: 30px;margin-top: 250px;margin-bottom: 391px;">Hex PS4</h1>
+</body>
+</html>
