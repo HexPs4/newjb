@@ -1,0 +1,26 @@
+CACHE MANIFEST 
+# Hex PS4 505 ( Thu 09/08/2022 )
+
+ca.png
+back.png
+lock.png
+cache.html
+exploit.js
+frontend.js
+goldhen222.bin
+goldhen224.bin
+index.html
+malloc.js
+MiraLoader.js
+netcat.js
+payload.js
+relocator.js
+rop.js
+rop.js.bz2
+ropb.js
+ropb2.js
+syscalls.js
+syscalls2.js
+toolbox.bin.bz2
+web.html
+webkit.js
